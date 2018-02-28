@@ -2,12 +2,9 @@
 
 A blog based on the template and tutorial of Stephen Grider to learn React and Redux.
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
 
 ### Getting Started
 
-
-#### Familiar with Git?
 Clone this repo, install dependencies, then start the local server:
 
 ```
