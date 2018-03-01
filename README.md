@@ -15,4 +15,11 @@ Clone this repo, install dependencies, then start the local server:
 
 Runs on http://localhost:8080/
 
+## Technology:
+* JavaScript (ES6)
+* React and Redux
+* AJAX
+* Bootstrap
+
+
 
