@@ -23,3 +23,10 @@ Runs on http://localhost:8080/
 
 
 
+## About the Developer
+
+Melissa is a software engineer in the San Francisco Bay Area. She's passionate about travel, technology and photography.
+Learn more here: <http://www.linkedin.com/in/melissa3000>
+
+
+
