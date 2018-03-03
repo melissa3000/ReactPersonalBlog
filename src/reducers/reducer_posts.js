@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { FETCH_POSTS } from '../actions';
 
 // Default state is an empty object so it handles the initial state without error
@@ -5,9 +6,9 @@ export default function(state = {}, action) {
   switch (action.type) {
   // Handle incoming list of posts
   case FETCH_POSTS:
-    console.log(action.payload.data); // [ post1, post2 ]
-    // Need to transform payload data from array of objects to object of objects
-    // { 4: post }
+    // Convert payload data from array of objects to an object of objects using the
+    // id as the key with lodash mapKeys
+    return _.mapKeys(action.payload.data, 'id');
 
   // Default case returns state object
   default:
