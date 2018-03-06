@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // Wire up the fetch posts action creator to the post index component
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
+import _ from 'lodash';
 
 class PostsIndex extends Component {
 // React lifecycle method (componentDidMount) is a function on a component class
@@ -12,18 +13,34 @@ class PostsIndex extends Component {
     this.props.fetchPosts();
   }
 
+  // Helper function to render posts to screen. Map over all posts in object and
+  // create one li for each post that we fetch
+  renderPosts() {
+    return _.map(this.props.posts, post => {
+      return (
+          <li className="list-group-item" key={post.id}>
+            {post.title}
+          </li>
+        );
+    });
+  }
+
   render() {
     return (
       <div>
-        Posts Index
+        <h3>Posts</h3>
+        <ul className="list-group">
+          {this.renderPosts()}
+        </ul>
       </div>
     );
   }
 }
 
-// Get action creator directly into a component
-// Wire up the connect helper, null is map state to props argument because we are
-// not passing map state to props, pass in action creator itself as second argument
-// instead of using map dispatch to props function (still works the same)
-export default connect(null, { fetchPosts })(PostsIndex);
+function mapStateToProps(state) {
+  return { posts: state.posts };
+}
+
+
+export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
 
