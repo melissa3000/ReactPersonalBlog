@@ -7,7 +7,7 @@ import { createStore, applyMiddleware } from 'redux';
 // be rendered inside any other react component in the application. The purpse of the
 // Route component is to provide that configuration that will say if the url looks like
 // this, then show that component.
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 
 import reducers from './reducers';
@@ -16,13 +16,17 @@ import PostsNew from './components/posts_new';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
-
+// Add Switch component to keep index (/) component from showing up on all routes
+// since react does a fuzzy match with route paths. It will only render the first
+// path that matches the url so most specific routes need to be at the top of the list.
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <div>
-        <Route path="/" component={PostsIndex} />
-        <Route path="/posts/new" component={PostsNew} />
+        <Switch>
+          <Route path="/posts/new" component={PostsNew} />
+          <Route path="/" component={PostsIndex} />
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>
