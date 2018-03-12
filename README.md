@@ -18,8 +18,7 @@ Runs on http://localhost:8080/
 ## Technology:
 * JavaScript (ES6)
 * React and Redux
-* AJAX
-* Bootstrap
+* Redux Form
 
 ### Screenshots:
 
