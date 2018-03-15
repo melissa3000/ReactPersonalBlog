@@ -20,13 +20,26 @@ class PostsNew extends Component {
     );
   }
 
+  onSubmit(values) {
+
+    console.log(values);
+  }
 
 
   // Name property should match validate errors below, so that any errors are displayed
   // with the correct field.
   render() {
+    // reduxForm adds more properties to our component when it's wired up (at the
+    // bottom of the file). handleSubmit is a property is being passed to the
+    // componenet on behalf of reduxForm.
+    const { handleSubmit } = this.props;
+
+    // reduxForm does the validation and decides if the form should be submitted.
+    // This side takes the data and submits it to a backend server. handleSubmit
+    // handles the reduxForm side of things to validate and if everything looks
+    // good, it calls the callback this.onSubmit.
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           label="Title"
           name="title"
@@ -42,6 +55,7 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
