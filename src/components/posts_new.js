@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component {
+  // The field object indicates a single piece of input (or state) that we are
+  // attempting to communicate with the user.
+  // The meta.error is automatically added to the field object by the validate
+  // function below. The text will be taken from the validate function below.
   renderField(field) {
     return (
       <div className="form-group">
@@ -11,12 +15,15 @@ class PostsNew extends Component {
           type="text"
           {...field.input}
         />
+        {field.meta.error}
       </div>
     );
   }
 
 
 
+  // Name property should match validate errors below, so that any errors are displayed
+  // with the correct field.
   render() {
     return (
       <form>
