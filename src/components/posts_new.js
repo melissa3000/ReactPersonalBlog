@@ -9,15 +9,24 @@ class PostsNew extends Component {
 
   // Only show the error message if the field has been touched by the user.
   renderField(field) {
+    // Destructure so that it cleans up code and you don't have to type out
+    // field.meta.whatever every time. Pulls off properties touched and error
+    // from the meta object. Destructuring to access properties on nested objects.
+    // Once destructured, you can replace field.meta.touched with simply touched.
+    const { meta: { touched, error } } = field;
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+
     return (
-      <div className="form-group">
+      <div className={className}>
         <label>{field.label}</label>
         <input
           className="form-control"
           type="text"
           {...field.input}
         />
-        {field.meta.touched ? field.meta.error : ''}
+        <div className="text-help">
+          {touched ? error : ''}
+        </div>
       </div>
     );
   }
