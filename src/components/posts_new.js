@@ -6,6 +6,8 @@ class PostsNew extends Component {
   // attempting to communicate with the user.
   // The meta.error is automatically added to the field object by the validate
   // function below. The text will be taken from the validate function below.
+
+  // Only show the error message if the field has been touched by the user.
   renderField(field) {
     return (
       <div className="form-group">
@@ -15,7 +17,7 @@ class PostsNew extends Component {
           type="text"
           {...field.input}
         />
-        {field.meta.error}
+        {field.meta.touched ? field.meta.error : ''}
       </div>
     );
   }
