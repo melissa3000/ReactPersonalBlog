@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createPost } from '../actions';
 
 class PostsNew extends Component {
   // The field object indicates a single piece of input (or state) that we are
@@ -32,9 +34,9 @@ class PostsNew extends Component {
     );
   }
 
+  // wire up action creator
   onSubmit(values) {
-
-    console.log(values);
+    this.props.createPost(values);
   }
 
 
@@ -107,7 +109,9 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'PostsNewForm'
-}) (PostsNew);
+}) (
+  connect(null,{ createPost }) (PostsNew)
+);
 
 
 
