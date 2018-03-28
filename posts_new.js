@@ -36,7 +36,13 @@ class PostsNew extends Component {
 
   // wire up action creator
   onSubmit(values) {
-    this.props.createPost(values);
+    // When this.props.history.push('/') is called, we will automatically navigate back to index page of posts. Route needs to match
+    // one of the Routes defined in src/index.js. Only want to do this after a new post has been created, so 
+    // need to create as a callback function.
+    
+    this.props.createPost(values, () => {
+      this.props.history.push('/');
+    });
   }
 
 

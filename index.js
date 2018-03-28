@@ -1,32 +1,33 @@
-import axios from 'axios';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+// BrowserRouter object is what interacts with the history library and decides what
+// to do based on a change in the url. The Route object is a React component that can
+// be rendered inside any other react component in the application. The purpse of the
+// Route component is to provide that configuration that will say if the url looks like
+// this, then show that component.
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import promise from 'redux-promise';
 
-export const FETCH_POSTS = 'fetch_posts';
-export const CREATE_POST = 'create_post';
+import reducers from './reducers';
+import PostsIndex from './components/posts_index';
+import PostsNew from './components/posts_new';
 
-const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
-const API_KEY = '?key=anyrandomkey12345'
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
-
-// Fetches a list of posts and returns them to the reducer.
-// This action creator reaches out to the API to make a request to fetch posts.
-// When a network request (API call) is made within an action creator, it requires
-// Axios to make the actual request and Redux Promise to deal with asynchronicity
-// of the request.
-export function fetchPosts() {
-  const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
-
-  return {
-    type: FETCH_POSTS,
-    payload: request
-  };
-}
-
-// Add action creator to post new blog posts (values) to API
-export function createPost(values) {
-  const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values);
-
-  return  {
-    type: CREATE_POST,
-    payload: request
-  };
-}
+// Add Switch component to keep index (/) component from showing up on all routes
+// since react does a fuzzy match with route paths. It will only render the first
+// path that matches the url so most specific routes need to be at the top of the list.
+ReactDOM.render(
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <BrowserRouter>
+      <div>
+        <Switch>
+          <Route path="/posts/new" component={PostsNew} />
+          <Route path="/" component={PostsIndex} />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  </Provider>
+  , document.querySelector('.container'));
