@@ -1,10 +1,14 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_POST } from '../actions';
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from '../actions';
 
 // Default state is an empty object so it handles the initial state without error
 export default function(state = {}, action) {
   switch (action.type) {
   // Handle incoming list of posts
+  case DELETE_POST:
+  // Omit deleted post from posts object
+    return _.omit(state, action.payload);  
+
   case FETCH_POST:
   // Return previously fetched posts in addition to post currently fetching.
   // Code after the comma is setting a key:value pair (brackets here indicate key interpolation)
