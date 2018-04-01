@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createPost } from '../actions';
 
 class PostsNew extends Component {
   // The field object indicates a single piece of input (or state) that we are
@@ -31,9 +34,15 @@ class PostsNew extends Component {
     );
   }
 
+  // wire up action creator
   onSubmit(values) {
-
-    console.log(values);
+    // When this.props.history.push('/') is called, we will automatically navigate back to index page of posts. Route needs to match
+    // one of the Routes defined in src/index.js. Only want to do this after a new post has been created, so 
+    // need to create as a callback function.
+    
+    this.props.createPost(values, () => {
+      this.props.history.push('/');
+    });
   }
 
 
@@ -67,6 +76,7 @@ class PostsNew extends Component {
           component={this.renderField}
         />
         <button type="submit" className="btn btn-primary">Submit</button>
+        <Link to="/" className="btn btn-danger">Cancel</Link>
       </form>
     );
   }
@@ -105,7 +115,9 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'PostsNewForm'
-}) (PostsNew);
+}) (
+  connect(null,{ createPost }) (PostsNew)
+);
 
 
 
